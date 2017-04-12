@@ -5,8 +5,8 @@
 
 # Sort files inside of the NZB.
 #
-# This script sorts the files inside of a NZB
-# so that .rar files are in order.
+# This script sorts the files inside of a NZB so
+# that .rar files are in order before the NZB is added to the queue.
 #
 # NOTE: This script requires Python to be installed on your system.
 

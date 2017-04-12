@@ -1,9 +1,10 @@
 # nzbget-sort
-Sort files inside of a NZB prior to adding them to your NZBGet queue.
+Sort files inside of a NZB prior to adding it to your NZBGet queue.
 
 # Explanation
 When trying to stream archived files with NZBGet it is important that the files are downloaded in order.
 This script alphabetizes the order of files inside of a NZB and then, if one exists, places the .rar at the beginning.
+It modifies a NZB before adding it to the NZBGet queue.
 
 # Usage
 First, you will likely want to get a script for streaming with NZBGet:  

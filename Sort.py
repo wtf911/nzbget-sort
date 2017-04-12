@@ -3,7 +3,7 @@
 ##############################################################################
 ### NZBGET SCAN SCRIPT 												       ###
 
-# Sort files inside of the NZB.
+# Sort files inside of a NZB.
 #
 # This script sorts the files inside of a NZB so
 # that .rar files are in order before the NZB is added to the queue.

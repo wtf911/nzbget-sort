@@ -7,6 +7,8 @@ This script alphabetizes the order of files inside of a NZB and then, if one exi
 
 # Usage
 First, you will likely want to get a script for streaming with NZBGet:
+
 https://github.com/BlkChockr/nzbget-stream
 Then, along with that script, you will place this inside of your NZBGet scripts folder and reload NZBGet.
+
 Lastly, add this under Settings > Extensions Scripts > Extensions inside of NZBGet.

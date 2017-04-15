@@ -17,6 +17,11 @@
 
 import sys, os, xml.dom.minidom, shutil
 
+if os.environ['NZBNP_FILENAME'][-14:] == "00single00.nzb":
+	print "[NZB] NZBPR_*unpack:=no"
+	print "test"
+	quit()
+
 # Load the XML string
 fp = open(os.environ['NZBNP_FILENAME'])
 xml_string = fp.read()
@@ -25,13 +30,12 @@ fp.close()
 # Parse the NZB with minidom
 dom = xml.dom.minidom.parseString(xml_string)
 
-# Stop if file contains a .rar
-
+# Stop if file contains a RAR
 for line in dom.getElementsByTagName("file"):
 	if ".rar" in line.getAttribute("subject"):
 		quit()
 		
-# Create a backup
+# Create a backup of the NZB
 backup = os.environ['NZBNP_FILENAME'] + ".processed"
 
 shutil.copy2(os.environ['NZBNP_FILENAME'], backup) 
@@ -50,7 +54,6 @@ for line in dom.toxml(encoding=dom.encoding).split('\n'):
 fp.close()
 
 # Rename
-
-newnzbname = os.environ['NZBNP_NZBNAME'][:-4] + "00single00" + ".nzb_processed"
+newnzbname = os.environ['NZBNP_NZBNAME'][:-4] + "00single00" + ".nzb"
 newfilename = os.environ['NZBNP_DIRECTORY'] + "\\" + newnzbname
 os.rename(os.environ['NZBNP_FILENAME'], newfilename)

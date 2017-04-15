@@ -19,8 +19,7 @@ import sys, os, xml.dom.minidom, shutil
 
 # Check if the NZB has already been stripped
 if os.environ['NZBNP_FILENAME'][-14:] == "00single00.nzb":
-	print "[NZB] NZBPR_*unpack:=no"
-	print "test"
+	print "[NZB] NZBPR_*Unpack:=no"
 	quit()
 
 # Load the XML string

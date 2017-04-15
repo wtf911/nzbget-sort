@@ -15,7 +15,7 @@
 
 # By wtf911 for use with NZBGet
 
-import sys, os, xml.dom.minidom, shutil
+import os, xml.dom.minidom, shutil
 
 # Check if the NZB has already been stripped
 if os.environ['NZBNP_FILENAME'][-14:] == "00single00.nzb":

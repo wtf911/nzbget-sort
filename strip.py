@@ -13,9 +13,7 @@
 ### NZBGET SCAN SCRIPT 			   									       ###
 ##############################################################################
 
-# Originally by Bertrand Janin
-# https://github.com/tamentis/nzbsort
-# Modified by wtf911 for use with NZBGet
+# By wtf911 for use with NZBGet
 
 import sys, os, xml.dom.minidom, shutil
 

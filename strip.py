@@ -14,6 +14,7 @@
 ##############################################################################
 
 # By wtf911 for use with NZBGet
+# Sorting portion by tamentis
 
 import os, xml.dom.minidom, shutil
 

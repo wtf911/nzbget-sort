@@ -14,9 +14,9 @@
 ##############################################################################
 
 # By wtf911 for use with NZBGet
-# Log grabbing portion by hugbug
+# API portion by hugbug
 
-import os, xml.dom.minidom, sys, datetime, re
+import os, xml.dom.minidom, sys, re, shutil
 
 try:
 	from xmlrpclib import ServerProxy # python 2
@@ -79,8 +79,7 @@ s = f.readlines()
 f.close()
 
 # Load the XML string
-backup = os.environ['NZBNP_FILENAME'] + ".processed"
-
+backup = os.environ['NZBOP_MAINDIR'] + "\\nzb\\" + os.environ['NZBPP_NZBNAME'][:-10] + ".nzb.processed"
 fp = open(backup)
 xml_string = fp.read()
 fp.close()
@@ -119,3 +118,12 @@ fp.close()
 
 # Rename
 os.rename(backup, backup[:-10])
+
+# Delete downloaded files
+shutil.rmtree(os.environ['NZBPP_DIRECTORY'])
+
+# Add it to the queue
+addnzb = server.scan()
+
+# Send exit status
+sys.exit(POSTPROCESS_SUCCESS)

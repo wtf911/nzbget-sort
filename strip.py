@@ -15,12 +15,35 @@
 
 # By wtf911 for use with NZBGet
 # Sorting portion by tamentis
+# API portion by hugbug
 
-import os, xml.dom.minidom, shutil
+import os, xml.dom.minidom, shutil, sys, re
+
+try:
+	from xmlrpclib import ServerProxy # python 2
+except ImportError:
+	from xmlrpc.client import ServerProxy # python 3
+
+# First we need to know connection info: host, port and password of NZBGet server.
+# NZBGet passes all configuration options to post-processing script as
+# environment variables.
+host = os.environ['NZBOP_CONTROLIP'];
+port = os.environ['NZBOP_CONTROLPORT'];
+username = os.environ['NZBOP_CONTROLUSERNAME'];
+password = os.environ['NZBOP_CONTROLPASSWORD'];
+
+if host == '0.0.0.0': host = '127.0.0.1'
+
+# Build an URL for XML-RPC requests
+rpcUrl = 'http://%s:%s@%s:%s/xmlrpc' % (username, password, host, port);
+
+# Create remote server object
+server = ServerProxy(rpcUrl)
 
 # Check if the NZB has already been stripped
 if os.environ['NZBNP_FILENAME'][-14:] == "00single00.nzb":
 	print "[NZB] NZBPR_*Unpack:=no"
+	print "[NZB] NZBPR_*naming=nzb"
 	quit()
 
 # Load the XML string
@@ -30,6 +53,16 @@ fp.close()
 
 # Parse the NZB with minidom
 dom = xml.dom.minidom.parseString(xml_string)
+
+# Delete stripped from history
+history = server.history()
+oldname = os.environ['NZBNP_NZBNAME'][:-4] + "00single00"
+
+for entry in history:
+	match = re.search( oldname, entry['Name'])
+	if match:
+		server.editqueue('HistoryFinalDelete', '', entry['NZBID'])
+		print(entry['NZBID'])
 
 # If the NZB already contains a .rar sort it now
 for line in dom.getElementsByTagName("file"):
@@ -76,6 +109,7 @@ for line in dom.getElementsByTagName("file"):
 				fp.write(line + '\n')
 
 		fp.close()
+		print "[NZB] NZBPR_*naming=nzb"
 		quit()
 		
 # Check if it was already post-processed

@@ -31,7 +31,7 @@ fp.close()
 # Parse the NZB with minidom
 dom = xml.dom.minidom.parseString(xml_string)
 
-# If the NZB already contains a .rar sort it now and then exit
+# If the NZB already contains a .rar sort it now
 for line in dom.getElementsByTagName("file"):
 	if ".rar" in line.getAttribute("subject"):
 		# Get a sorted list of XML elements to push back to the NZB
@@ -76,6 +76,15 @@ for line in dom.getElementsByTagName("file"):
 				fp.write(line + '\n')
 
 		fp.close()
+		quit()
+		
+# Check if it was already post-processed
+fp = open(os.environ['NZBNP_FILENAME'])
+s = fp.readlines()
+fp.close()
+
+for line in s:
+	if "post-processed by NZBGet" in line:
 		quit()
 		
 # Create a backup of the NZB
